@@ -13,11 +13,13 @@ class Query
 	
 	public function __construct($user)
 	{
-		$this->insert="INSERT INTO userpass VALUES 
-						('".$user->getUserName()."','".$user->getPassword()."','".$user->getFirstName()."','"
-							.$user->getLastName()."','".$user->getEmail()."')";
+		
+		$this->insert="INSERT INTO `userpass` (`username`, `password`, `firstName`, `lastName`, `email`, `temp`, `ph`)
+		VALUES ('".$user->getUserName()."', '".$user->getPassword()."', '".$user->getFirstName()."', '".$user->getLastName()."', '".$user->getEmail()."', '', '')";
+
 		$this->tableCreate="CREATE TABLE `php_prj`.`".$user->getUserName()."`
-							( `tmp` INT(32) NOT NULL , `time` DATETIME NOT NULL ) ENGINE = InnoDB;";
+		                    ( `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `temp` VARCHAR(5) NOT NULL ,
+		                      `ph` VARCHAR(5) NOT NULL , `level` VARCHAR(5) NOT NULL , PRIMARY KEY (`time`)) ENGINE = InnoDB;";
         $this->userSelect="SELECT * FROM userpass";
         $this->dataSelect="SELECT * FROM ".$user->getUserName();
         $this->delUser="DELETE FROM userpass WHERE username='".$user->getUserName()."';";

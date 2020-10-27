@@ -46,7 +46,7 @@ class dbClass
 		$this->connect();
 		$result = $this->connection->query($this->querys->getUserSelect());
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			if($act=="userAndPass"&&$row["username"]==$user->getUserName()&&$row["password"]==$user->getPassword()){
+			if($act=="userAndPass"&&$row["username"]==$user->getUserName()&&$row["password"]==$user->getPassword()){			
 				$this->disconnect();
 				return true;
 			}
@@ -127,6 +127,30 @@ class dbClass
 		}
 		$this->disconnect();
 		return false;
+	}
+
+	public function chartQuery($name)
+	{
+		$dataArr=array('temp'=>"",'PH'=>"",'level'=>"");		
+		$this->connect();
+			try {
+					$result = $this->connection->query("SELECT * FROM `".$name."`");
+					if($result){
+						while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+							$ph .= "['".$row{'time'}."',".$row{'ph'}."],";
+							$temp .= "['".$row{'time'}."',".$row{'temp'}."],";
+							$level .="['".$row{'time'}."',".$row{'level'}."],";
+						}
+						$dataArr['temp']=$temp;
+						$dataArr['PH']=$ph;
+						$dataArr['level']=$level;
+				    	return $dataArr;
+					}
+
+			} catch (Exception $e) {
+		    	$this->disconnect();
+			}
+			$this->disconnect();
 	}
 }
 ?>

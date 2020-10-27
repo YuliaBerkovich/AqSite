@@ -19,7 +19,7 @@ if(nameCheck($_POST['uname'])) // If entered name is possible (first char not a 
 		{
 			sendMail($_POST['email']);                // Send mail for secssesful user creation
 			$_SESSION['dataCreate']=$_POST['uname'];  // Save user entered data for generate data in user table
-	    	header('Location:TMP_TO_SQL_TST.php');    // Redirect to data generator file
+	    	header('Location:indexAq.php');    // Redirect to data generator file
 	    	exit;   
 		}
 		else // If entered data not saved in DataBase show relevant massege 
