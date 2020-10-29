@@ -13,9 +13,9 @@ if(nameCheck($_POST['uname'])) // If entered name is possible (first char not a 
 	$user=new User($_POST['uname'],$_POST['pword'],$_POST['fname'],$_POST['lname'],$_POST['email']);
 	$sql=new dbClass($user);    // Creating new object to connect to DataBase 
 	
-	if(!$sql->userExists($user,"onlyUser")) // If entered username NOT exists in DataBase
+	if(!$sql->userExists("onlyUser")) // If entered username NOT exists in DataBase
 	{
-		if($sql->userHandler($user))       // dbClass function to enter user data to DataBaes
+		if($sql->userCreate())       // dbClass function to enter user data to DataBaes
 		{
 			sendMail($_POST['email']);                // Send mail for secssesful user creation
 			$_SESSION['dataCreate']=$_POST['uname'];  // Save user entered data for generate data in user table
